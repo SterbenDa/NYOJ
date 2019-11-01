@@ -1,0 +1,105 @@
+A-B Problem
+时间限制：1000 ms  |  内存限制：65535 KB
+难度：3
+描述
+A+B问题早已经被大家所熟知了，是不是很无聊呢？现在大家来做一下A-B吧。
+
+现在有两个实数A和B，聪明的你，能不能判断出A-B的值是否等于0呢？
+
+输入
+有多组测试数据。每组数据包括两行，分别代表A和B。
+它们的位数小于100，且每个数字前中可能包含+,- 号。
+每个数字前面和后面都可能有多余的0。
+每组测试数据后有一空行。
+输出
+对于每组数据，输出一行。
+如果A-B=0,输出YES,否则输出NO。
+样例输入
+1
+1
+
+1.0
+2.0
+样例输出
+YES
+NO
+
+/*--------------------------------------------------*/
+还是一道模拟题。
+和上次的A+B四类似，先记录每个数字的符号，然后把符号去掉，处理每个数字的前缀0和后缀0，然后比较。
+需要注意的是：
+1、删前缀0的时候，整数必须保留一位。
+2、只有小数才删后缀0。
+3、注意+0 == -0。
+[cpp] view plaincopy
+#include <stdio.h>  
+#include <ctype.h>  
+#include <string.h>  
+#include <stdlib.h>  
+const int M=100000;  
+void back(char* c,int &l)  
+{  
+    if(strchr(c,'.') == NULL)           //整数不用处理后缀  
+        return ;  
+    for(int i=l-1;i>=1;i--)             //删除后缀0  
+    {  
+        if(c[i]!='0')  
+            break;  
+        l--;  
+    }  
+    if(c[l-1]=='.')  
+        l--;  
+    c[l]='\0';  
+    //puts("after back->");  
+    //puts(c);  
+}  
+void front(char* c,int &l,bool &f)  
+{  
+    int cnt = isdigit(c[0]) ? 0 : 1;    //cnt记录前缀0和符号的个数  
+    if(c[0]=='-')  
+        f = false;  
+    for(int i=cnt;i<l-1;i++)            //l-1保证c为整数时留一位整数  
+    {  
+        if(c[i+1]=='.' || c[i]!='0')    //c[i+1]=='.'保证c为小数时留一位整数  
+            break;  
+        cnt++;  
+    }  
+    if(cnt)  
+    {  
+        for(int i=0;i<l-cnt;i++)        //把字符串整体向前移cnt位  
+            c[i] = c[i+cnt];  
+        c[l-cnt] = '\0';  
+    }  
+    //puts("after front->");  
+    //printf(f?"+ ":"- ");  
+    //puts(c);  
+}  
+void deal(char *c,bool &f)  
+{  
+    int l = strlen(c);  
+    f = true;                           //f记录符号，初始为正  
+    back(c,l);  
+    front(c,l,f);  
+}  
+bool Cmp(char* A,char* B,bool a,bool b)  
+{  
+    if(strcmp(A,B) == 0)  
+    {  
+        if(strcmp(A,"0") == 0 || a^b == 0)  
+            return true;  
+    }  
+    return false;  
+}  
+int main()  
+{  
+    char A[M],B[M];  
+    bool a,b;  
+    while(~scanf("%s%s",A,B))  
+    {  
+        deal(A,a);  
+        deal(B,b);  
+        puts(Cmp(A,B,a,b)?"YES":"NO");  
+    }  
+  
+    return 0;  
+}  

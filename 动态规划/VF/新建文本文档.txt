@@ -1,0 +1,67 @@
+
+
+
+VF
+时间限制：1000 ms  |  内存限制：65535 KB
+难度：2
+描述
+Vasya is the beginning mathematician. He decided to make an important contribution to the science and to become famous all over the world. But how can he do that if the most interesting facts such as Pythagor’s theorem are already proved? Correct! He is to think out something his own, original. So he thought out the Theory of Vasya’s Functions. Vasya’s Functions (VF) are rather simple: the value of the Nth VF in the point S is an amount of integers from 1 to N that have the sum of digits S. You seem to be great programmers, so Vasya gave you a task to find the milliard VF value (i.e. the VF with N = 109) because Vasya himself won’t cope with the task. Can you solve the problem?
+输入
+There are multiple test cases.
+Integer S (1 ≤ S ≤ 81).
+输出
+The milliard VF value in the point S.
+样例输入
+1
+样例输出
+10
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+英文题很难理解，题意：1～1000000000之间，各位数字之和等于给定s的数的个数
+每行给出一个数s(1 ≤ s ≤ 81)，求出1~10^9内各位数之和与s相等的数的个数。
+1、只有s=1时，10^9的系数才能为1，否则就大于10^9；
+所以和为1的要单一列出来。
+2、如果s!=1：
+定义状态dp[i][j]为前i位各位数之和为j的情况数量：对于前i为的数字之和最大为：9*i，即每一位数字都是9.
+
+i=1、只有一位的数字，因为s>=1，所以最低位只能是1-9 其中的一个数字，
+
+i>1、假设第i位放数字k（则k只能是0~9并且k<=s），若要使第前i位数字之和为j，那么前i-1位只能放j-k，由此得出动态转移方程：d[i]][j]=d[i][j]+d[i-1][j-k] (0<=k<=j&&k<=9)
+#include<cstdio>  
+int dp[9][81];  
+int main(){  
+    int n;  
+    for(int i=1;i<=9;i++)  
+        dp[1][i]=1;  
+    for(int i=1;i<=9;i++)  
+        for(int j=1;j<=9*i;j++)  
+            for(int k=0;k<=9 && k<=j;k++)  
+                dp[i][j]+=dp[i-1][j-k];  
+    while(~scanf("%d",&n)){  
+    if(n==1){  
+    printf("10\n");  
+    continue;  
+    }  
+    int sum=0;  
+    for(int i=1;i<=9;i++)  
+        sum+=dp[i][n];  
+    printf("%d\n",sum);  
+    }  
+}  
+
+总结：关于数字每位数字和的问题。每一位只能是0~9的其中一个数字。最高位不能为零，所以最高位涉及到的数字就要单一列出来，作为特殊的处理。定义状态dp[i][j]为前i位各位数之和为j的情况数量，假设第i位放数字k（则k只能是0~9并且k<=s），若要使第前i位数字之和为j，那么前i-1位只能放j-k，由此得出动态转移方程：d[i]][j]=d[i][j]+d[i-1][j-k] (0<=k<=j&&k<=9)

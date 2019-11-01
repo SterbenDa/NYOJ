@@ -1,0 +1,20 @@
+The partial sum problem
+时间限制：1000 ms  |  内存限制：65535 KB
+难度：2
+描述
+One day,Tom’s girlfriend give him an array A which contains N integers and asked him:Can you choose some integers from the N integers and the sum of them is equal to K. 
+输入
+There are multiple test cases.
+Each test case contains three lines.The first line is an integer N(1≤N≤20),represents the array contains N integers. The second line contains N integers,the ith integer represents A[i](-10^8≤A[i]≤10^8).The third line contains an integer K(-10^8≤K≤10^8).
+输出
+If Tom can choose some integers from the array and their them is K,printf ”Of course,I can!”; other printf ”Sorry,I can’t!”.
+样例输入
+4
+1 2 4 7
+13
+4
+1 2 4 7
+15
+样例输出
+Of course,I can!
+Sorry,I can't!

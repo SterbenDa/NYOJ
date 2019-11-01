@@ -1,0 +1,135 @@
+擅长排列的小明
+时间限制：1000 ms  |  内存限制：65535 KB
+难度：4
+描述
+小明十分聪明，而且十分擅长排列计算。比如给小明一个数字5，他能立刻给出1-5按字典序的全排列，如果你想为难他，在这5个数字中选出几个数字让他继续全排列，那么你就错了，他同样的很擅长。现在需要你写一个程序来验证擅长排列的小明到底对不对。
+输入
+第一行输入整数N（1<N<10）表示多少组测试数据，
+每组测试数据第一行两个整数 n m (1<n<9,0<m<=n)
+输出
+在1-n中选取m个字符进行全排列，按字典序全部输出,每种排列占一行，每组数据间不需分界。如样例
+样例输入
+2
+3 1
+4 2
+样例输出
+1
+2
+3
+12
+13
+14
+21
+23
+24
+31
+32
+34
+41
+42
+43
+来源
+[hzyqazasdf]原创
+上传者
+hzyqazasdf
+这道题以前就做过了；是用stl里面的next_permutation函数做的，今天再看这个题目都有点不记得了，学过了的东西还是要过一段时间就复习一下，今天又用dfs搜索+回溯递归做了一次，关键还是思路，锻炼自己的思维能力；
+next_permutation函数功能是输出所有比当前排列大的排列，顺序是从小到大，与之相对的还有一个prev_permutation函数；
+而prev_permutation()函数功能是输出所有比当前排列小的排列，顺序是从大到小。
+不熟悉的时候可以编写一个测试函数测试一下；
+[cpp] view plaincopy在CODE上查看代码片派生到我的代码片
+#include <iostream>  
+#include <cstring>  
+#include <algorithm>  
+using namespace std;  
+int main(){  
+//int a[] = {3,1,2};  
+int a[]={1,2,3};  
+do{  
+     cout << a[0] << " " << a[1] << " " << a[2] << endl;  
+}  
+while (next_permutation(a,a+3));//a+3是数组的大小  
+//while (prev_permutation(a,a+3));  
+return 0;  
+}  
+可以测试一下两组数据的结果；
+第一组 {3,1,2}用next得到的结果是{3,1，2}和{3,2,1}；
+             用pre得到的结果是{3,1,2}，{2,3,1}，{2,1,3}，{1,3,2,}，{1,2,3}；
+第二组 {1,2,3}用next得到的结果是{1,2,3}，{1,3,2}，{2,1,3}，{2,3,1}，{3,1,2}，{3,2,1}；
+             用pre得到的结果是{1,2,3}；
+我们从上面的结论就可以得出来：要得到全排列的话就要对给定的数组进行排序；next函数默认的是从小到大的顺序，pre函数默认的是从大到小的顺序；
+这两个函数的原理还有详解可以参考 这两个博客；
+http://leonard1853.iteye.com/blog/1450085      http://www.cnblogs.com/mycapple/archive/2012/08/13/2635853.html
+还是看看上面那道题的代码吧：
+[cpp] view plaincopy在CODE上查看代码片派生到我的代码片
+#include <cstdio>  
+#include <cstring>  
+#include <algorithm>  
+char a[10]={'1','2','3','4','5','6','7','8','9','\0'};//给定一个大小顺序排号的数组  
+using namespace std;  
+int main()  
+{  
+  int t,n,m;  
+  char b[10],c[10];  
+  scanf("%d",&t);  
+  while(t--)  
+  {  
+      scanf("%d%d",&n,&m);  
+      strcpy(b,a);//全排列是按字典序开始的，所以第一组数据是从小到大的，直接复制；  
+      b[m]='\0';//复制前面m个  
+      printf("%s\n",b);  
+      while(next_permutation(a,a+n))//给数组进行全排列  
+      {  
+          strcpy(c,a);  
+          c[m]='\0';  
+          if(strcmp(b,c))//判断b,c数组是否相等  
+          {  
+              strcpy(b,c);//依次把全排列后面的顺序输出  
+              b[m]='\0';  
+              printf("%s\n",b);  
+          }  
+      }  
+  }  
+  return 0;  
+}  
+
+下面是用递归写的，主要的思想是搜索+回溯；
+从1开始判断看这个数是否已经在序列中了，然后再判断下一个，判断完了在搜索下一个；
+主要要理解递归的思想；
+下面是代码：
+[cpp] view plaincopy在CODE上查看代码片派生到我的代码片
+#include <cstdio>  
+#include <cstring>  
+int visit[20],a[20];//标记数组  
+int n,m;  
+void dfs(int pos)  
+{  
+    if(pos==m)//递归结束的标志  
+    {  
+        for(int i=0;i<m;i++)  
+            printf("%d",a[i]);//输出  
+        printf("\n");  
+        return ;  
+    }  
+    for(int i=1;i<=n;i++)  
+    {  
+        if(!visit[i])//这个没有访问  
+        {  
+            visit[i]=1;//标记已经访问  
+            a[pos]=i;//这个序列的第一个数  
+            dfs(pos+1);//搜索下一个数  
+            visit[i]=0;//回溯  
+        }  
+    }  
+}  
+int main()  
+{  
+  int t;  
+  scanf("%d",&t);  
+  while(t--)  
+  {  
+      memset(visit,0,sizeof(visit));//初始化  
+      scanf("%d%d",&n,&m);  
+      dfs(0);  
+  }  
+  return 0;  
+}  

@@ -1,0 +1,24 @@
+求次数
+时间限制：1000 ms  |  内存限制：65535 KB
+难度：2
+描述
+题意很简单，给一个数n 以及一个字符串str，区间【i,i+n-1】 为一个新的字符串，i 属于【0,strlen（str）】如果新的字符串出现过ans++，例如：acmacm n=3,那么 子串为acm cma mac acm ,只有acm出现过
+
+求ans;
+
+输入
+LINE 1: T组数据（T<10）
+LINE 2: n ,n <= 10,且小于strlen（str）;
+LINE 3:str
+str 仅包含英文小写字母 ,切长度小于10w
+输出
+求 ans
+样例输入
+2
+2
+aaaaaaa
+3
+acmacm
+样例输出
+5
+1

@@ -1,0 +1,45 @@
+Coin Test
+时间限制：3000 ms  |  内存限制：65535 KB
+难度：1
+描述
+As is known to all,if you throw a coin up and let it droped on the desk there are usually three results. Yes,just believe what I say ~it can be the right side or the other side or standing on the desk, If you don't believe this,just try In the past there were some famous mathematicians working on this .They repeat the throwing job once again. But jacmy is a lazy boy.He is busy with dating or playing games.He have no time to throw a single coin for 100000 times. Here comes his idea,He just go bank and exchange thousands of dollars into coins and then throw then on the desk only once. The only job left for him is to count the number of coins with three conditions.
+
+He will show you the coins on the desk to you one by one. Please tell him the possiblility of the coin on the right side as a fractional number if the possiblity between the result and 0.5 is no larger than 0.003. BE CAREFUL that even 1/2，50/100,33/66 are equal only 1/2 is accepted ! if the difference between the result and 0.5 is larger than 0.003,Please tell him "Fail".Or if you see one coin standing on the desk,just say "Bingo" any way.
+
+输入
+Three will be two line as input.
+The first line is a number N(1<N<65536)
+telling you the number of coins on the desk.
+The second line is the result with N litters.The letter are "U","D",or "S","U" means the coin is on the right side. "D" means the coin is on the other side ."S" means standing on the desk.
+输出
+If test successeded,just output the possibility of the coin on the right side.If the test failed please output "Fail",If there is one or more"S",please output "Bingo"
+样例输入
+6
+UUUDDD
+样例输出
+1/2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+我们都知道，如果你扔一枚硬币并让它掉在桌子上，通常有三种结果。是的，相信我的话吧，它可能是正面朝上，背面朝上，亦或竖立起来。你不信吗，尽管试试吧。过去有些著名数学家研究过。他们一次次重复的扔硬币。但是jacmy是一个懒人，他忙着和女孩约会或玩游戏，没时间扔一枚硬币100000次。这是他的主意，去银行把成千上万的钱换成硬币只扔一次。这时要做的只是分别统计三种不同结果的硬币数。
+他把桌子上每枚硬币给你看。请你用分数的形式告诉他硬币正面朝上的概率（当该概率在0.003和0.5之间），注意1/2,50/100,33/66是相等的，但只有1/2的形式才能通过！假如该概率小于0.003或大于0.5，则告诉他"Fail",当然如果你看到有一枚硬币竖立，输出"Bingo"即可。
+输入
+有两行作为输入。
+第一行是一个整数N（1<N<65536），表示桌子上硬币的个数。
+第二行是表示用来表示硬币朝向的N个字母，它们是"U","D","S". "U"表示正面朝上，"D"表示正面朝下，"S"表示竖立。
+输出
+若该实验成功，输出正面朝上的概率。若失败，则输出"Fail",如果有一个或多个"S",输出"Bingo"

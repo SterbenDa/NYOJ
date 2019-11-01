@@ -1,0 +1,22 @@
+Same binary weight
+时间限制：300 ms  |  内存限制：65535 KB
+难度：3
+描述
+The binary weight of a positive  integer is the number of 1's in its binary representation.for example,the decmial number 1 has a binary weight of 1,and the decimal number 1717 (which is 11010110101 in binary) has a binary weight of 7.Give a positive integer N,return the smallest integer greater than N that has the same binary weight as N.N will be between 1 and 1000000000,inclusive,the result is guaranteed to fit in a signed 32-bit interget.
+
+输入
+The input has multicases and each case contains a integer N.
+输出
+For each case,output the smallest integer greater than N that has the same binary weight as N.
+样例输入
+1717
+4
+7
+12
+555555
+样例输出
+1718
+8
+11
+17
+555557
